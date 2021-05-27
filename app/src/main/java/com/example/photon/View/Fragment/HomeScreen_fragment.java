@@ -28,6 +28,7 @@ import com.example.photon.R;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 
 public class HomeScreen_fragment extends Fragment {
@@ -119,6 +120,13 @@ public class HomeScreen_fragment extends Fragment {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         byte[] imgbytes = byteArrayOutputStream.toByteArray();
+
+        /*int bytes = bitmap.getByteCount();
+        ByteBuffer byteBuffer = ByteBuffer.allocate(bitmap.getRowBytes() * bitmap.getHeight());
+        bitmap.copyPixelsToBuffer(byteBuffer);
+        byteBuffer.rewind();
+        byte[] imgbytes = byteBuffer.array();*/
+
         String image = Base64.encodeToString(imgbytes, Base64.DEFAULT);
 
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new Photo_edit_fragment(image)).addToBackStack(null).commit();
